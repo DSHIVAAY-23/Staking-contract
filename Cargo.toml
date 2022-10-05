@@ -1,0 +1,44 @@
+[package]
+name = "staking"
+version = "0.1.0"
+authors = ["[divyank_rai] <[raidivyank08@gmail.com]>"]
+edition = "2021"
+rust-version = "1.56.1"
+
+[dependencies]
+ink_primitives = { version = "3.0.0-rc9", default-features = false }
+ink_metadata = { version = "3.0.0-rc9", default-features = false, features = ["derive"], optional = true }
+ink_env = { version = "3.0.0-rc9", default-features = false }
+ink_storage = { version = "3.0.0-rc9", default-features = false }
+ink_lang = { version = "3.0.0-rc9", default-features = false }
+
+scale-info = { version = "2", default-features = false, features = ["derive"], optional = true }
+scale = { package = "parity-scale-codec", version = "3", default-features = false, features = ["derive", "full"] }
+
+[lib]
+name = "staking"
+path = "lib.rs"
+crate-type = [
+	# Used for normal contract Wasm blobs.
+	"cdylib",
+]
+[profile.dev]
+panic = "abort" # disable stack unwinding on panic
+overflow-checks = false
+[profile.release]
+panic = "abort" # disable stack unwinding on panic
+overflow-checks = false
+[unstable]
+build-std = ["core", "compiler_builtins"]
+
+[features]
+default = ["std"]
+std = [
+    "ink_metadata/std",
+    "ink_env/std",
+    "ink_storage/std",
+    "ink_primitives/std",
+    "scale/std",
+    "scale-info/std",
+]
+ink-as-dependency = []
